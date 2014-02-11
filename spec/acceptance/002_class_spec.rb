@@ -14,10 +14,13 @@ describe "logstash class:" do
   describe "default parameters" do
 
     it 'should run successfully' do
-      pp = "class { 'logstash': manage_repo => true, repo_version => '1.3', java_install => true }"
+      pp = "class { 'logstash': manage_repo => true, repo_version => '1.3', java_install => true, init_defaults => { 'START' => 'true' } }
+            logstash::configfile { 'basic_config': content => 'input { tcp { port => 2000 } } output { stdout { } } ' }
+           "
 
       # Run it twice and test for idempotency
       apply_manifest(pp, :catch_failures => true)
+      sleep 10
       expect(apply_manifest(pp, :catch_failures => true).exit_code).to be_zero
     end
 
