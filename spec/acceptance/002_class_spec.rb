@@ -14,7 +14,7 @@ describe "logstash class:" do
   describe "default parameters" do
 
     it 'should run successfully' do
-      pp = "class { 'logstash': manage_repo => true, repo_version => '1.3', java_install => true, init_defaults => { 'START' => 'true' } }
+      pp = "class { 'logstash': manage_repo => true, repo_version => '1.3', java_install => true, init_defaults => { 'START' => 'true', 'LS_JAR' => '/opt/logstash/logstash.jar', 'LS_JAVA_OPTS' => '\"-Xmx256m -Djava.io.tmpdir=/var/lib/logstash/\"' } }
             logstash::configfile { 'basic_config': content => 'input { tcp { port => 2000 } } output { stdout { } } ' }
            "
 
